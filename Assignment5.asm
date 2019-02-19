@@ -8,16 +8,16 @@ Write a program that:
 3.     Displays their sum and difference.
 4.     Repeats the same steps three times. Clears the screen after each loop iteration.
 5.     You need to call the following procedures from irvine32 library:
-·        ClrScr
-·        WriteString
-·        WriteInt
-·        ReadInt
-·        Crlf
-·        ReadChar
-·        Gotoxy
+Â·        ClrScr
+Â·        WriteString
+Â·        WriteInt
+Â·        ReadInt
+Â·        Crlf
+Â·        ReadChar
+Â·        Gotoxy
 
 The Gotoxy procedure locates the cursor at a given row and column in the console window.
-By default, the console window’s X-coordinate range is 0 to 79 and the Y-coordinate range is 0 to 24.
+By default, the console windowâ€™s X-coordinate range is 0 to 79 and the Y-coordinate range is 0 to 24.
 When you call Gotoxy, pass the Y-coordinate (row) in DH and the X-coordinate (column) in DL. Sample call:
 
 mov   dh,10 ; row 10
