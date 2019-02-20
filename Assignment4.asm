@@ -30,7 +30,7 @@ Write a complete program that:
 	!
     
 
-include irvine32.inc
+include C:\Users\Evren\source\repos\Irvine\irvine32.inc
 
 .data
 string1 byte 0Ah,0Dh,"Dumping out charArr",0
@@ -166,26 +166,13 @@ main proc
 	L6:
 	 ; how each element in newArr is constructed
 	 ; newArr[ecx] =  charArr[ecx] + numArr[ecx]
-		mov eax, ecx           ; eax is now 5
-		dec eax                ; decrement to adjust for index
-		mul ebx                ; multiply by newArr type to measure correct size bytes
-		; eax now holds the right index to look at
+	movzx eax, charArr[ecx]
+	add ecx, ecx
+	add ecx, ecx; this is now 4* ecx
+	mov edx, numArr[ecx]
+	mov dword ptr newArr[ecx], edx    ; number first
+	mov dword ptr newArr[ecx + 4], eax; char second
 
-		mov edx, charArr[ecx] ; edx will be the upper half of newArr[eax]
-		sub eax, typeof numArr
-		mov newArr[eax], edx
-		add eax, typeof numArr
-		
-		mov edx, numArr[ecx * 4]
-
-		mov newArr[eax], edx
-		; CONTINUE FIXING HERE
-
-	 ; try to multiple ebx after adding char so the value goes up 4 bytes
-	 ; leaving bx to hold the value of a num
-	 ; then later you divide back down to bring the char to a usable register, use that
-	 ; and then use the bx value with the number too
-	 ; ... its convoluded but I think it works
 
 	loop L6
 
@@ -193,9 +180,19 @@ main proc
     ;7. Prints out the newArr.
 	; printing out requires format that keeps char and number values the same
 	; "e3 m7 a6 l55 a3"
-
-
-	; Im not actually sure how to do this...
+	mov ecx, lengthof newArr
+	mov ebx, type numArr
+	mov edx, 0
+	loopPrintCharsAndNums:
+		mov eax, dword ptr newArr[edx]
+		call writeChar
+		add edx, ebx
+		mov eax, dword ptr newArr[edx]
+		call writeDec
+		mov eax, ' '
+		call writeChar
+	loop loopPrintCharsAndNums
+	
 	
 	 
 	  ; ---------------------------Your Code Ends Here-------------------------
